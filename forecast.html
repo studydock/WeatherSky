@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Forecast - SkySense</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">SkySense</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="forecast.html" class="active">Forecast</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main class="forecast-main">
+    <section class="forecast-hero">
+      <h1 class="animate__animated animate__fadeInDown">5-Day Forecast</h1>
+      <p class="animate__animated animate__fadeIn">Hourly / 3-hourly forecast cards — enter a city below or open this page from Home after a search.</p>
+    </section>
+
+    <section class="forecast-search">
+      <div class="search-box-small">
+        <input type="text" id="forecastCity" placeholder="City for forecast (e.g., Tokyo)" />
+        <button id="forecastBtn">Get Forecast</button>
+      </div>
+    </section>
+
+    <section id="forecastResult" class="forecast-results animate__animated animate__fadeInUp">
+      <!-- Forecast cards will be injected here -->
+      <p class="hint">No forecast loaded yet. Enter a city and press "Get Forecast".</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 SkySense</p>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // Forecast page script: uses OpenWeather 5-day forecast endpoint.
+    const forecastBtn = document.getElementById('forecastBtn');
+    const forecastCityInput = document.getElementById('forecastCity');
+    const forecastResult = document.getElementById('forecastResult');
+
+    // Helper: render simple cards
+    function renderForecastList(list) {
+      // Clear
+      forecastResult.innerHTML = '';
+      // Group by day (convert dt_txt -> date)
+      const days = {};
+      list.forEach(item => {
+        const dateStr = item.dt_txt.split(' ')[0]; // YYYY-MM-DD
+        if (!days[dateStr]) days[dateStr] = [];
+        days[dateStr].push(item);
+      });
+
+      // For each day, display a summary card (take 12:00 item if exists else first)
+      for (const date in days) {
+        const entries = days[date];
+        // prefer midday forecast
+        let chosen = entries.find(e => e.dt_txt.includes('12:00:00')) || entries[Math.floor(entries.length/2)];
+        const temp = chosen.main.temp;
+        const desc = chosen.weather[0].description;
+        const icon = chosen.weather[0].icon;
+
+        const card = document.createElement('div');
+        card.className = 'forecast-card animate__animated animate__fadeInUp';
+        card.innerHTML = `
+          <h4>${date}</h4>
+          <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${desc}" />
+          <p class="fc-temp">${temp}°C</p>
+          <p class="fc-desc">${desc}</p>
+        `;
+        forecastResult.appendChild(card);
+      }
+    }
+
+    async function getForecast(city) {
+      // Ensure API_KEY exists (script.js defines API_KEY const)
+      if (typeof API_KEY === 'undefined' || !API_KEY) {
+        forecastResult.innerHTML = `<p class="hint">No API key found. Set your OpenWeather API key in <code>script.js</code> (const API_KEY = '...').</p>`;
+        return;
+      }
+
+      forecastResult.innerHTML = `<p class="hint">Loading forecast for <strong>${city}</strong>…</p>`;
+      try {
+        const res = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`);
+        const data = await res.json();
+        if (data.cod === "404" || data.cod === 404) {
+          forecastResult.innerHTML = `<p class="hint">City not found. Check spelling and try again.</p>`;
+          return;
+        }
+        renderForecastList(data.list);
+      } catch (err) {
+        console.error(err);
+        forecastResult.innerHTML = `<p class="hint">Error fetching forecast. Check console.</p>`;
+      }
+    }
+
+    forecastBtn.addEventListener('click', () => {
+      const city = forecastCityInput.value.trim();
+      if (!city) {
+        alert('Please enter a city name.');
+        return;
+      }
+      getForecast(city);
+    });
+
+    // Optional: If user came here from index after a search, pass city via query string ?city=...
+    function getQueryCity() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('city');
+    }
+
+    window.addEventListener('load', () => {
+      const fromQuery = getQueryCity();
+      if (fromQuery) {
+        forecastCityInput.value = fromQuery;
+        getForecast(fromQuery);
+      }
+    });
+  </script>
+</body>
+</html>
