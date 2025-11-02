@@ -1,212 +1,225 @@
-/* ==========================
-    GENERAL STYLING
-========================== */
+/* ===================================
+   🌤️ SkySense Weather - style.css
+   =================================== */
+
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* Reset default margins/paddings */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-body {
-    background: linear-gradient(to bottom, #87CEEB, #f0f8ff); /* Sky blue gradient */
-    color: #333;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-/* ==========================
-    NAVBAR
-========================== */
+/* ===========================
+   🌍 Navbar
+   =========================== */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 50px;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
 }
 
 .navbar .logo {
-    font-size: 28px;
-    font-weight: bold;
-    color: #1E3A8A;
-    letter-spacing: 1px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
-.navbar .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 30px;
+.navbar nav ul {
+  list-style: none;
+  display: flex;
+  gap: 25px;
 }
 
-.navbar .nav-links li a {
-    text-decoration: none;
-    color: #1E3A8A;
-    font-weight: 500;
-    transition: all 0.3s ease;
+.navbar nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+  position: relative;
 }
 
-.navbar .nav-links li a:hover {
-    color: #f97316;
-    transform: scale(1.1);
+.navbar nav ul li a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: #00b4d8;
+  left: 0;
+  bottom: -4px;
+  transition: width 0.3s ease;
 }
 
-/* ==========================
-    HERO / WEATHER SECTION
-========================== */
+.navbar nav ul li a:hover::after,
+.navbar nav ul li a.active::after {
+  width: 100%;
+}
+
+/* ===========================
+   🌈 Hero Section
+   =========================== */
 .hero {
-    text-align: center;
-    padding: 80px 20px;
-    background: url('images/cloud-bg.jpg') no-repeat center center/cover; /* Optional animated bg */
-    position: relative;
+  background: url('../images/cloud-bg.jpg') no-repeat center/cover;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: 80px;
+  transition: background 0.6s ease;
 }
 
 .hero h1 {
-    font-size: 48px;
-    color: #1E3A8A;
-    margin-bottom: 15px;
+  color: #fff;
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
-.hero p {
-    font-size: 20px;
-    margin-bottom: 30px;
-    color: #333;
+/* ===========================
+   🔍 Search Box
+   =========================== */
+.search-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
 }
 
-/* ==========================
-    SEARCH BAR
-========================== */
-.search-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 40px;
-    gap: 10px;
+.search-box input {
+  width: 250px;
+  padding: 10px 15px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  transition: 0.3s;
 }
 
-.search-container input {
-    padding: 12px 20px;
-    width: 300px;
-    border-radius: 50px;
-    border: 2px solid #1E3A8A;
-    outline: none;
-    transition: all 0.3s ease;
+.search-box input:focus {
+  box-shadow: 0 0 10px #00b4d8;
 }
 
-.search-container input:focus {
-    border-color: #f97316;
-    box-shadow: 0 0 10px #f97316;
+.search-box button {
+  background: #00b4d8;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 500;
 }
 
-.search-container button {
-    padding: 12px 25px;
-    border: none;
-    background: #1E3A8A;
-    color: #fff;
-    border-radius: 50px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
+.search-box button:hover {
+  background: #0090b2;
+  transform: translateY(-2px);
+  box-shadow: 0 0 10px #00b4d8;
 }
 
-.search-container button:hover {
-    background: #f97316;
-    transform: scale(1.05);
-}
-
-/* ==========================
-    WEATHER DISPLAY CARD
-========================== */
+/* ===========================
+   🌦️ Weather Display
+   =========================== */
 .weather-display {
-    display: inline-block;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(10px);
-    padding: 30px 40px;
-    border-radius: 20px;
-    text-align: center;
-    transition: all 0.5s ease;
-    animation: fadeInUp 1s ease;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 25px 40px;
+  color: white;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s;
+  animation: fadeIn 1s ease;
+}
+
+.weather-display:hover {
+  transform: translateY(-5px);
 }
 
 .weather-display h2 {
-    font-size: 32px;
-    color: #1E3A8A;
-    margin-bottom: 10px;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
 }
 
 .weather-display p {
-    font-size: 18px;
-    margin: 5px 0;
+  font-size: 1rem;
+  margin: 5px 0;
 }
 
 .weather-display img {
-    width: 100px;
-    margin-top: 10px;
-    animation: float 3s ease-in-out infinite;
+  margin: 10px 0;
+  width: 100px;
 }
 
-/* Floating icon animation */
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
-}
-
-/* ==========================
-    MAP SECTION
-========================== */
-.map-section {
-    padding: 60px 20px;
-    background: #f0f8ff;
-    text-align: center;
-}
-
-.map-section h2 {
-    font-size: 36px;
-    color: #1E3A8A;
-    margin-bottom: 30px;
-}
-
-/* Leaflet map full width */
+/* ===========================
+   🗺️ Map Section
+   =========================== */
 #map {
-    width: 80%;
-    max-width: 900px;
-    height: 400px;
-    margin: 0 auto;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  width: 90%;
+  height: 300px;
+  border-radius: 15px;
+  margin: 30px auto;
+  box-shadow: 0 0 20px rgba(0, 180, 216, 0.4);
 }
 
-/* ==========================
-    FOOTER
-========================== */
-footer {
-    background: #1E3A8A;
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-    margin-top: auto;
+/* ===========================
+   ⚡ Animations
+   =========================== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* ==========================
-    ANIMATIONS
-========================== */
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(50px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* ==========================
-    RESPONSIVE DESIGN
-========================== */
+/* ===========================
+   📱 Responsive
+   =========================== */
 @media (max-width: 768px) {
-    .hero h1 { font-size: 36px; }
-    .hero p { font-size: 18px; }
-    .search-container input { width: 200px; }
-    .navbar { flex-direction: column; gap: 15px; }
-    .nav-links { gap: 15px; }
+  .navbar {
+    flex-direction: column;
+    padding: 10px 20px;
+  }
+
+  .navbar nav ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .hero h1 {
+    font-size: 1.6rem;
+  }
+
+  .search-box input {
+    width: 180px;
+  }
+
+  #map {
+    height: 250px;
+  }
+}
+
+/* ===========================
+   🧭 Footer
+   =========================== */
+footer {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  text-align: center;
+  padding: 15px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  font-size: 0.9rem;
 }
