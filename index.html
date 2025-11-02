@@ -1,67 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkySense - AI Weather</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkySense Weather</title>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
-    
-    <!-- Leaflet.js CSS for Map -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <!-- Favicon (optional) -->
+  <link rel="icon" href="images/weather-icon.png" type="image/png" />
 
-    <!-- Animate.css for animations -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Animate.css -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+
+  <!-- Leaflet.js CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet/dist/leaflet.css"
+  />
+
+  <!-- Your main stylesheet -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="logo">SkySense</div>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="forecast.html">Forecast</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="overlay"></div>
 
-    <!-- Hero / Weather Section -->
-    <section class="hero">
-        <h1 class="animate__animated animate__fadeInDown">SkySense - Your AI Weather Companion</h1>
-        <p class="animate__animated animate__fadeIn">Check the current weather anywhere in the world!</p>
+    <header>
+      <h1 class="animate__animated animate__fadeInDown">🌤️ SkySense Weather</h1>
+      <p class="tagline animate__animated animate__fadeInDown">
+        Discover real-time weather and interactive maps
+      </p>
+    </header>
 
-        <!-- Search Bar -->
-        <div class="search-container">
-            <input type="text" id="cityInput" placeholder="Enter city name">
-            <button id="searchBtn">Search</button>
-        </div>
+    <!-- Search Bar -->
+    <div class="search-box animate__animated animate__fadeInUp">
+      <input
+        type="text"
+        id="cityInput"
+        placeholder="Enter city name..."
+        autocomplete="off"
+      />
+      <button id="searchBtn">Search</button>
+    </div>
 
-        <!-- Weather Display -->
-        <div class="weather-display animate__animated animate__fadeInUp">
-            <h2 id="cityName">City Name</h2>
-            <p id="weatherDesc">Weather Description</p>
-            <p id="temperature">Temperature: --°C</p>
-            <p id="humidity">Humidity: --%</p>
-            <p id="wind">Wind Speed: -- km/h</p>
-            <img id="weatherIcon" src="" alt="" />
-        </div>
-    </section>
+    <!-- Weather Display -->
+    <div class="weather-display animate__animated animate__fadeInUp">
+      <h2 id="cityName">New Delhi</h2>
+      <img id="weatherIcon" src="" alt="Weather Icon" />
+      <p id="weatherDesc">Fetching data...</p>
+      <p id="temperature"></p>
+      <p id="humidity"></p>
+      <p id="wind"></p>
+    </div>
 
-    <!-- Map Section -->
-    <section class="map-section">
-        <h2 class="animate__animated animate__fadeInDown">Location Map</h2>
-        <div id="map" style="height: 400px;"></div>
-    </section>
+    <!-- Map -->
+    <div id="map"></div>
+  </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>© 2025 SkySense | AI Powered Weather Website</p>
-    </footer>
+  <footer>
+    <p>Built with ❤️ by <strong>You</strong> | Powered by OpenWeather & OpenStreetMap</p>
+  </footer>
 
-    <!-- JS Scripts -->
-    <!-- Leaflet.js for map -->
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="script.js"></script>
+  <!-- Leaflet.js -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <!-- Your script -->
+  <script src="script.js"></script>
 </body>
 </html>
