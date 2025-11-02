@@ -3,7 +3,7 @@
 // ============================
 
 // Replace with your own OpenWeather API key
-const API_KEY = "YOUR_API_KEY";
+const API_KEY = "216e7d3431e664dd22f4a512c739b3a0";
 
 // DOM elements
 const searchBtn = document.getElementById('searchBtn');
