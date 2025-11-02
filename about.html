@@ -1,72 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>About - SkySense</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkySense Weather</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- Animate.css for smooth effects -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <link rel="stylesheet" href="style.css" />
+
+  <!-- Leaflet (for map) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <!-- Navbar (same style as index) -->
-  <nav class="navbar">
-    <div class="logo">SkySense</div>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html" class="active">About</a></li>
-      <li><a href="forecast.html">Forecast</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </nav>
-
-  <main class="about-main">
-    <section class="about-hero">
-      <h1 class="animate__animated animate__fadeInDown">About SkySense</h1>
-      <p class="animate__animated animate__fadeIn">An AI-inspired weather UI that shows real-time weather, interactive maps and animated backgrounds.</p>
-    </section>
-
-    <section class="features animate__animated animate__fadeInUp">
-      <div class="feature-card">
-        <h3>Real-time Weather</h3>
-        <p>SkySense fetches current weather using the OpenWeather API (temperature, humidity, wind, and condition).</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>Interactive Map</h3>
-        <p>Search a city and see its location on a Leaflet map powered by OpenStreetMap tiles.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>Animated UI</h3>
-        <p>Animated weather card, dynamic backgrounds based on conditions, and smooth transitions for a clean demo experience.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>Extensible</h3>
-        <p>Easy to extend: add forecasts, geolocation, localStorage history, or EmailJS contact integration.</p>
-      </div>
-    </section>
-
-    <section class="tech-stack animate__animated animate__fadeInUp">
-      <h2>Technologies used</h2>
+  <!-- 🌍 Navbar -->
+  <header class="navbar">
+    <div class="logo">🌤️ SkySense</div>
+    <nav>
       <ul>
-        <li>HTML5, CSS3, JavaScript</li>
-        <li>OpenWeather API (free tier)</li>
-        <li>Leaflet.js + OpenStreetMap</li>
-        <li>Animate.css for quick animations</li>
-        <li>Optional: EmailJS or GitHub Pages for hosting</li>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="forecast.html">Forecast</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
-    </section>
-  </main>
+    </nav>
+  </header>
 
+  <!-- 🌈 Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1 class="animate__animated animate__fadeInDown">Check the Weather Instantly</h1>
+      <div class="search-box animate__animated animate__fadeInUp">
+        <input type="text" id="cityInput" placeholder="Enter city name..." />
+        <button id="searchBtn">Search</button>
+      </div>
+
+      <div class="weather-display animate__animated animate__fadeInUp">
+        <h2 id="cityName">--</h2>
+        <p id="weatherDesc">--</p>
+        <img id="weatherIcon" src="images/cloud-bg.jpg" alt="Weather Icon" width="100" />
+        <p id="temperature">Temperature: -- °C</p>
+        <p id="humidity">Humidity: -- %</p>
+        <p id="wind">Wind Speed: -- km/h</p>
+      </div>
+
+      <div id="map"></div>
+    </div>
+  </section>
+
+  <!-- 🌤️ Footer -->
   <footer>
-    <p>© 2025 SkySense — Built with ❤️ by You</p>
+    <p>© 2025 SkySense | Made with ❤️ by [Your Name]</p>
   </footer>
 
+  <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="script.js"></script>
+
+  <!-- Custom JS -->
+  <script src="js/script.js"></script>
 </body>
 </html>
